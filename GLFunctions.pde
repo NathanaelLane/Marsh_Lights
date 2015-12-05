@@ -49,7 +49,7 @@ void glSetup(){
   
   vshID = glLoadShader("quad.vsh", false);
   
-  gl.clearColor(0, 0, 0, 1);
+  gl.clearColor(0, 0, 0, 0);
   
   buf.clear();
   gl.genFramebuffers(1, buf);
@@ -65,7 +65,7 @@ int glCreateTexture(int format, int w, int h, ByteBuffer data){
   gl.bindTexture(PGL.TEXTURE_2D, texID);
   gl.texImage2D(PGL.TEXTURE_2D, 0, format, w, h, 0, PGL.RGB, PGL.UNSIGNED_BYTE, data);
   gl.texParameteri(PGL.TEXTURE_2D, PGL.TEXTURE_MIN_FILTER, PGL.NEAREST);
-  gl.texParameteri(PGL.TEXTURE_2D, PGL.TEXTURE_MAG_FILTER, PGL.NEAREST);
+  gl.texParameteri(PGL.TEXTURE_2D, PGL.TEXTURE_MAG_FILTER, PGL.LINEAR);
   gl.texParameteri(PGL.TEXTURE_2D, PGL.TEXTURE_WRAP_S, PGL.CLAMP_TO_EDGE);
   gl.texParameteri(PGL.TEXTURE_2D, PGL.TEXTURE_WRAP_T, PGL.CLAMP_TO_EDGE);
   gl.bindTexture(PGL.TEXTURE_2D, 0);

@@ -1,8 +1,8 @@
-//#include volheader.fsh
+//#include simheader.fsh
 
-uniform sampler2D sim;
+uniform sampler2D in_z;
 
-out vec4 frag_force;
+out vec4 frag_state;
 out vec4 frag_normal;
 
 
@@ -18,16 +18,22 @@ vec3 kernel[8] = vec3[8](
 );
 
 void main(){
-
-	vec4 center = texture(sim, frag_pos).rgba;
 	
-	vec2 force = vec2(0.0);
+	vec3 center = texture(in_z, frag_pos).rgb;
+	vec3 samples[8];
+	float f0 = ext_force();
 	for(int i = 0; i < 8; i++){
-		force += (texture(sim, frag_pos + step * kernel[i].xy).xy - center.xy) * kernel[i].z * inputs[SPRING_CONST];
+		samples[i] = texture(in_z, frag_pos + step * kernel[i].xy).rgb;
+		f0 += (samples[i].g - center.g) * inputs[SPRING_CONST] * kernel[i].b;
 	}
-	force -= center.xy * inputs[SPRING_CONST];
-	force += ext_force();
-	force += (center.zw - center.xy) * inputs[DAMPING_CONST];
-	frag_force = vec4(force, 0.0, 1.0);
-	frag_normal = vec4(normalize(vec3(center.xy, 0.001)) * 0.5 + 0.5, 1.0);
+	float ce = half_verlet(f0, center.rg);
+	
+	float fe = ext_force();
+	for(int i = 0; i < 8; i++){
+		fe += (samples[i].b - ce) * inputs[SPRING_CONST] * kernel[i].b;
+	}
+	
+	//layout is F_n, F_n+1/2, Z_n-1, Z_n
+	frag_state = vec4(f0, fe, center.rg);
+	frag_normal = vec4(center.g, center.r, 1.0, 1.0);
 }

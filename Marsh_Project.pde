@@ -2,8 +2,8 @@
 
 void settings(){
 
-  size(800, 600, P3D);
-  //fullScreen(P3D);
+  //size(960, 600, P3D);
+  fullScreen(P3D);
   PJOGL.profile = 3;
 }
 
