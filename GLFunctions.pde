@@ -1,8 +1,5 @@
 import com.jogamp.opengl.GL3;
 import java.nio.IntBuffer;
-import java.nio.ByteBuffer;
-import java.nio.FloatBuffer;
-import java.nio.ByteOrder;
 
 PGL gl;
 GL3 gl3;
@@ -36,7 +33,7 @@ void glSetup(){
     1f, 1f
   };
   
-  FloatBuffer vboData = ByteBuffer.allocateDirect(vertices.length * Float.BYTES).order(ByteOrder.nativeOrder()).asFloatBuffer();  
+  FloatBuffer vboData = nativeFloatbuffer(vertices.length);  
   vboData.put(vertices);
   vboData.flip();
   

@@ -3,8 +3,8 @@ import themidibus.*;
 MidiBus controller;
 String midiName = "Launch Control";
 
-final int[] knobValues = new int[16];
-final int[] buttonValues = new int[8];
+final Knob[] knobs = new Knob[16];
+final boolean[] pads = new boolean[8];
 
 void midiSetup(){
 
@@ -14,12 +14,15 @@ void midiSetup(){
       break;
     }else{
       println("Please connect Launchpad.");
-      knobValues[6] = 71;
-      knobValues[7] = 14;
-      knobValues[14] = 20;
-      knobValues[15] = 224;
-      buttonValues[6] = 2;
     }
+  }
+  
+  for(int i = 0; i < knobs.length; i++){
+    knobs[i] = new Knob();
+    //knobs[i].softValue(int(random(1.0) * 127)); 
+  }
+  for(int i = 0; i < pads.length; i++){
+    pads[i] = true;
   }
 }
 
@@ -28,9 +31,31 @@ void controllerChange(int chan, int num, int val){
   //everything should be coming in on channel 1
   int index = num & 0x7;
   switch(num >> 3 & 0x3){
-    case 1: buttonValues[index] = val; break;
-    case 2: knobValues[index + 8] = val; break;
-    case 3: knobValues[index] = val; break;
+    case 1: pads[index] = !pads[index]; break;
+    case 2: knobs[index + 8].hardValue(val); break;
+    case 3: knobs[index].hardValue(val); break;
     default: println("unknown cc"); break;
+  }
+}
+
+class Knob{
+  
+  boolean restored = true;
+  int value;
+  
+  void softValue(int val){
+    value = val;
+    //restored = false;
+  }
+  
+  void hardValue(int val){
+    if(!restored){
+      if(val == value){
+        restored = true;
+      }else{
+        return;
+      }
+    }
+    value = val;
   }
 }
