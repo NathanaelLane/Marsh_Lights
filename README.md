@@ -2,8 +2,6 @@
 
 This work was produced in fulfillment of my project obligations as a resident of Marsh, the arts theme house at Amherst College. 
 
-It is intended for live performance and has been [well-received](http://amherststudent.amherst.edu/?q=article/2015/12/02/artist-spotlight-nate-lane-%E2%80%9918-combines-music-visuals-and-technology) by the campus community after demos at music and dance events.
-
 
 ## Overview
 
@@ -16,6 +14,7 @@ There are five "nodes" (top, bottom, left, right, and center) controlled by thre
 
 The output of the FFT and configurable filter envelopes (R, G, B) are displayed along the bottom.
 
+
 ## Getting Started
 
 Marsh Project is implemented as a Processing sketch. The Processing IDE and environment can be downloaded from [Processing.org](https://processing.org/). 
@@ -23,6 +22,7 @@ Marsh Project is implemented as a Processing sketch. The Processing IDE and envi
 The project also requires the `midibus` and `processing.sound` libraries. These can be installed from within the Processing IDE through the `sketch -> import library -> add library` menu.
 
 Once the requirements are installed, simply clone or download this repository and open it in the Processing IDE.
+
 
 ## Input
   
@@ -37,7 +37,8 @@ In theory, any midi controller can be used as long as inputs are mapped to the c
   - **Cutoff knobs** control the trigger threshold for nodes. This can help lower the effects of background noise.
   - **Width knobs** control the "sampling width" of each envelope in frequency space.
   - **Center knobs** control the central frequency band of each sample envelope. This allows one set of nodes to react to mids or vocals, for example, and another to react to bass.
-  
+
+ 
 ## License
 
 This software is released under the MIT license. 
