@@ -7,7 +7,7 @@ uniform sampler2D normals;
 out vec4 frag_color;
 
 void main(){
-	//rudimentary normalized blinn-phong ripped off the internet
+	//rudimentary normalized blinn-phong
 	
 	vec3 normal = texture(normals, frag_pos).rgb * 2.0 - 1.0;
 	vec3 light = normalize(vec3(0.2, 0.5, 1.0));
