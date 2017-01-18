@@ -24,6 +24,22 @@ void midiSetup(){
   for(int i = 0; i < pads.length; i++){
     pads[i] = true;
   }
+  
+  // set the knobs' default values-- this code should ideally go with the Envelope logic...
+  knobs[0].softValue(126);      // gain 1
+  knobs[1].softValue(20);       // cutoff 1
+  knobs[2].softValue(100);      // gain 2
+  knobs[3].softValue(70);       // cutoff 2 
+  knobs[4].softValue(112);      // gain 3
+  knobs[5].softValue(70);       // cutoff 3
+  knobs[6].softValue(105);      // spring constant
+  knobs[7].softValue(3);        // damping constant
+  knobs[8].softValue(35);       // width 1
+  knobs[9].softValue(50);       // center 1
+  knobs[10].softValue(3);       // width 2
+  knobs[11].softValue(3);       // center 2
+  knobs[12].softValue(15);      // width 3
+  knobs[13].softValue(20);      // center 3
 }
 
 
